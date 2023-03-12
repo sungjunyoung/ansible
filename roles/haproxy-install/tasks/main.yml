@@ -24,7 +24,7 @@
     remote_src: yes
 
 - name: Install haproxy
-  command: "bash -lc 'cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc && make install'"
+  command: "bash -lc 'cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_SYSTEMD=1 && make install'"
 
 - name: Creates haproxy config directory
   file:
@@ -41,20 +41,12 @@
     path: "/var/lib/haproxy/stats"
     state: touch
 
-- name: Create link to /usr/sbin
-  command: "ln -s /usr/local/sbin/haproxy /usr/sbin/haproxy"
+- name: Add group 'haproxy'
+  group:
+    name: haproxy
+    state: present
 
-- name: Create daemon config
-  command: "cp /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}/examples/haproxy.init /etc/init.d/haproxy"
-
-- name: Change mod for daemon config
-  command: "chmod 755 /etc/init.d/haproxy"
-
-- name: Change mod for daemon config
-  command: "chmod 755 /etc/init.d/haproxy"
-
-- name: Daemon reload
-  command: "systemctl daemon-reload"
-
-- name: Daemon autorestart
-  command: "chkconfig haproxy on"
+- name: Add user 'haproxy'
+  user:
+    name: haproxy
+    group: haproxy
