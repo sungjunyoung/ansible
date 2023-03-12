@@ -24,7 +24,7 @@
     remote_src: yes
 
 - name: Install haproxy
-  command: "bash -lc 'cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_SYSTEMD=1 && make install'"
+  command: "bash -lc 'cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc USE_SYSTEMD=1 && make install'"
 
 - name: Creates haproxy config directory
   file:
