@@ -42,6 +42,16 @@ frontend http
     use_backend                 http
     default_backend             http
 
+frontend https
+    bind :::443 v4v6
+    option                      http-server-close
+    use_backend                 https
+    default_backend             https
+
 backend http
     balance     roundrobin
     server      live1           192.168.0.157:30001 check
+
+backend https
+    balance     roundrobin
+    server      live1           192.168.0.157:30002 check
