@@ -51,11 +51,11 @@ frontend https
 
 backend http
     balance     roundrobin
-    server      live1           192.168.0.157:30001 check weight 50
-    server      live2           192.168.0.159:30001 check weight 50
+    server      live1           192.168.0.157:30001 check weight 0
+    server      live2           192.168.0.159:30001 check weight 100
 
 backend https
     mode        tcp
     balance     roundrobin
-    server      live1           192.168.0.157:30002 check weight 50
-    server      live2           192.168.0.159:30002 check weight 50
+    server      live1           192.168.0.157:30002 check weight 0
+    server      live2           192.168.0.159:30002 check weight 100
