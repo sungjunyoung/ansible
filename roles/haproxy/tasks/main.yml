@@ -15,17 +15,12 @@
 - name: Download file from a file path
   ansible.builtin.get_url:
     url: "http://www.haproxy.org/download/{{ haproxy_version }}/src/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}.tar.gz"
-    dest: /root/haproxy.tar.gz
-
-- name: Creates haproxy directory
-  file:
-    path: "/root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}"
-    state: directory
+    dest: /root
 
 - name: Extract haproxy.tar.gz into /root/haproxy
   ansible.builtin.unarchive:
-    src: /root
-    dest: "/root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}"
+    src: "/root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}.tar.gz"
+    dest: "/root"
     remote_src: yes
 
 - name: Install haproxy
