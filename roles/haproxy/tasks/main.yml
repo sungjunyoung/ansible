@@ -2,3 +2,12 @@
   ansible.builtin.hostname:
     name: "{{ inventory_hostname }}"
     use: systemd
+
+- name: Install requirements
+  yum:
+    name:
+      - gcc
+      - pcre-devel
+      - tar
+      - make
+    state: present
