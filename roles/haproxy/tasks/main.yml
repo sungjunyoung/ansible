@@ -32,6 +32,6 @@
     state: directory
 
 - name: Copying configuration file
-  template:
-    src: "haproxy.cfg"
-    dest: "/etc/haproxy/haproxy.cfg"
+  copy:
+    src: haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
