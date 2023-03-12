@@ -27,3 +27,6 @@
     src: /root/haproxy.tar.gz
     dest: "/root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}"
     remote_src: yes
+
+- name: Install haproxy
+  ansible.builtin.command: "cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc && make install"
