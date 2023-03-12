@@ -1,0 +1,4 @@
+- hosts: haproxy
+  gather_facts: False
+  roles:
+    - { role: haproxy }
