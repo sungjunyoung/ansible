@@ -32,7 +32,8 @@
     state: directory
 
 - name: Copying configuration file
-  copy:
+  template:
     src: haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
-    remote_src: yes
+    owner: root
+    mode: 0755
