@@ -38,7 +38,7 @@
 
 - name: Create haproxy library stats file
   file:
-    path: "/var/lib/haproxy"
+    path: "/var/lib/haproxy/stats"
     state: file
 
 - name: Create daemon config
