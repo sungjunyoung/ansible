@@ -1,28 +1,23 @@
 global
-    log         127.0.0.1 local2
+    log                 127.0.0.1 local2 info
 
-    chroot      /var/lib/haproxy
-    pidfile     /var/run/haproxy.pid
+    chroot              /var/lib/haproxy
+    pidfile             /var/run/haproxy.pid
+    stats socket        /var/run/haproxy.sock mode 666 level admin
     maxconn     4000
     user        haproxy
     group       haproxy
     daemon
 
-    # turn on stats unix socket
     stats socket /var/lib/haproxy/stats
-
-    # utilize system-wide crypto-policies
-    ssl-default-bind-ciphers PROFILE=SYSTEM
-    ssl-default-server-ciphers PROFILE=SYSTEM
 
 defaults
     mode                    http
     log                     global
+    option                  forwardfor
     option                  httplog
     option                  dontlognull
-    option http-server-close
-    option forwardfor       except 127.0.0.0/8
-    option                  redispatch
+    option                  http-server-close
     retries                 3
     timeout http-request    10s
     timeout queue           1m
@@ -33,17 +28,20 @@ defaults
     timeout check           10s
     maxconn                 3000
 
+listen stats
+    bind :::8888 v4v6
+    mode http
+    stats enable
+    stats hide-version
+    stats uri /
+    stats realm Haproxy\ Statistics
+
 frontend main
-    bind *:8080
-    acl url_static       path_beg       -i /static /images /javascript /stylesheets
-    acl url_static       path_end       -i .jpg .gif .png .css .js
+    bind :::80 v4v6
+    option                      http-server-close
+    use_backend                 http
+    default_backend             http
 
-    use_backend static          if url_static
-    default_backend             app
-
-backend static
+backend default
     balance     roundrobin
-    server      static 127.0.0.1:4331 check
-
-backend app
-    balance     roundrobin
+    server  home1 192.168.0.157:30001 check
