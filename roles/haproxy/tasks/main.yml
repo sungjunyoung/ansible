@@ -35,3 +35,4 @@
   copy:
     src: haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
+    remote_src: yes
