@@ -36,12 +36,12 @@ listen stats
     stats uri /
     stats realm Haproxy\ Statistics
 
-frontend main
+frontend http
     bind :::80 v4v6
     option                      http-server-close
     use_backend                 http
     default_backend             http
 
-backend default
+backend http
     balance     roundrobin
-    server  home1 192.168.0.157:30001 check
+    server      live1           192.168.0.157:30001 check
