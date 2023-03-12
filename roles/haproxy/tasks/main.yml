@@ -29,4 +29,4 @@
     remote_src: yes
 
 - name: Install haproxy
-  ansible.builtin.command: "cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc && make install"
+  ansible.builtin.command: "bash -lc 'cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc && make install'"
