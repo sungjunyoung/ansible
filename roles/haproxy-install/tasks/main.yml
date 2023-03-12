@@ -24,9 +24,34 @@
     remote_src: yes
 
 - name: Install haproxy
-  ansible.builtin.command: "bash -lc 'cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc && make install'"
+  command: "bash -lc 'cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc && make install'"
 
 - name: Creates haproxy config directory
   file:
     path: "/etc/haproxy"
     state: directory
+
+- name: Create haproxy library directory
+  file:
+    path: "/var/lib/haproxy"
+    state: directory
+
+- name: Create haproxy library stats file
+  file:
+    path: "/var/lib/haproxy"
+    state: file
+
+- name: Create daemon config
+  command: "cp /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}/examples/haproxy.init /etc/init.d/haproxy"
+
+- name: Change mod for daemon config
+  command: "chmod 755 /etc/init.d/haproxy"
+
+- name: Change mod for daemon config
+  command: "chmod 755 /etc/init.d/haproxy"
+
+- name: Daemon reload
+  command: "systemctl daemon-reload"
+
+- name: Daemon autorestart
+  command: "chkconfig haproxy on"
