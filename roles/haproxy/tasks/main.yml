@@ -11,3 +11,8 @@
       - tar
       - make
     state: present
+
+- name: Download file from a file path
+  ansible.builtin.get_url:
+    url: "http://www.haproxy.org/download/2.0/src/haproxy-{{ haproxy_version }}.tar.gz"
+    dest: /root/haproxy
