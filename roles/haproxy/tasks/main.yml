@@ -25,3 +25,13 @@
 
 - name: Install haproxy
   ansible.builtin.command: "bash -lc 'cd /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }} && make TARGET=linux-glibc && make install'"
+
+- name: Creates haproxy config directory
+  file:
+    path: "/etc/haproxy"
+    state: directory
+
+- name: Copying configuration file
+  template:
+    src: "haproxy.cfg"
+    dest: "/etc/haproxy/haproxy.cfg"
