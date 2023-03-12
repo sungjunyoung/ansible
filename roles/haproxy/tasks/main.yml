@@ -14,5 +14,5 @@
 
 - name: Download file from a file path
   ansible.builtin.get_url:
-    url: "http://www.haproxy.org/download/2.0/src/haproxy-{{ haproxy_version }}.tar.gz"
+    url: "http://www.haproxy.org/download/{{ haproxy_version }}/src/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}.tar.gz"
     dest: /root/haproxy
