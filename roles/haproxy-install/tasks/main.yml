@@ -10,6 +10,7 @@
       - pcre-devel
       - tar
       - make
+      - systemd-devel
     state: present
 
 - name: Download file from a file path
