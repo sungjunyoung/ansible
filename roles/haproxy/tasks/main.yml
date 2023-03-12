@@ -20,5 +20,4 @@
 - name: Extract haproxy.tar.gz into /root/haproxy
   ansible.builtin.unarchive:
     src: /root/haproxy.tar.gz
-    dest: /root/haproxy
     remote_src: yes
