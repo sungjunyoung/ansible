@@ -41,6 +41,9 @@
     path: "/var/lib/haproxy/stats"
     state: touch
 
+- name: Create link to /usr/sbin
+  command: "ln -s /usr/local/sbin/haproxy /usr/sbin/haproxy"
+
 - name: Create daemon config
   command: "cp /root/haproxy-{{ haproxy_version }}.{{ haproxy_patch_version }}/examples/haproxy.init /etc/init.d/haproxy"
 
